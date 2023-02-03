@@ -6,7 +6,10 @@ services:
     depends_on:
       - ipld-eth-db
     # Use an existing image
-    image: vulcanize/ipld-eth-db:v4.2.1-alpha
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    # image: vulcanize/ipld-eth-db:v4.2.1-alpha
     environment:
       DATABASE_USER: "vdbm"
       DATABASE_NAME: "vulcanize_testing"
@@ -15,7 +18,10 @@ services:
       DATABASE_PORT: 5432
 
   ipld-eth-db:
-    image: timescale/timescaledb:latest-pg14
+    build:
+      context: .
+      dockerfile: ./timescaledb/Dockerfile
+    # image: timescale/timescaledb:latest-pg14
     restart: always
     command: ["postgres", "-c", "log_statement=all"]
     environment:
